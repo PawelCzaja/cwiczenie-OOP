@@ -2,12 +2,7 @@
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
         <title></title>
-        <style>
-            #email {width: 200px;}
-            td {width:130px; outline:solid black 2px; margin:0px;}
-            td:last-child {width:auto; outline:solid black 2px; margin:0px;}
-
-        </style>
+        <link rel="stylesheet" href="style.css">
         <?php
 
             $pracownicy = [];
@@ -29,7 +24,7 @@
                 }
                 else
                 {
-                    echo "Connected successfully<br>";
+                    echo "<p id='concection_check'>Connected successfully</p><br>";
                 }
                 return $conn;
             }
@@ -41,6 +36,7 @@
                 $sql = 'INSERT INTO `dane_pracownikow` (`imie`, `nazwisko`, `email`, `data_dolaczenia`, `id`, `placa_netto`) VALUES ("'.$imie.'","'.$nazwisko.'","'.$email.'", "'.date("Y-m-d").'", NULL , "'.$placa_netto.'");';
                 if(mysqli_query($conn, $sql))
                 {
+                    header("location:index.php");
                     echo "Dodano nowego pracownika: ".$imie." ".$nazwisko;
                 }
                 else
@@ -53,7 +49,7 @@
             // wyswietlanie wszystkich pracownikow
             
             $conn = laczenie();
-            $sql = 'SELECT * FROM dane_pracownikow';
+            $sql = 'SELECT * FROM dane_pracownikow ORDER BY "imie"';
             if ($result = mysqli_query($conn, $sql))
             {
                 while ($row = mysqli_fetch_row($result))
@@ -90,7 +86,7 @@
                     <td>" . $this->placa_netto . "zł</td>
                     <td>" . $this->placa_brutto . "zł</td>
                     <td>" . $this->ile_pracuje. ' dni</td>
-                    <td><input value="usuń pracownika" type="submit" name="'.$this->id.'"></td>
+                    <td><input value="usuń" type="submit" name="'.$this->id.'"></td>
                     </form>
                     </tr>';
                 }
@@ -103,13 +99,13 @@
                         $sql = 'DELETE FROM `dane_pracownikow` WHERE `dane_pracownikow`.`id` ='.$this->id;
                         if($result = mysqli_query($conn, $sql))
                         {
+                            header("location:index.php");
                             echo "Usunięto pracownika ".$this->imie." ".$this->nazwisko;
                         }
                         else
                         {
                             echo "Błąd: ".mysqli_error($conn);
                         }
-                        header("location:index.php");
                     }
                 }
 
@@ -157,53 +153,60 @@
                 ?>
             </table>
         </div>
-        <div>
-            <br>
-            <form method="POST" action="index.php">
-                <input name="imie" type="text">
-                <input name="nazwisko" type="text">
-                <input name="email" type="text">
-                <input name="placa_netto" type="number">
-                <input name="dodaj" type="submit" value="dodaj nowego pracownika">
-            </form>
+        <div class="flex">
+            <div class="place"></div>
+            <div>
+                <form method="POST" action="index.php">
+                    <label>Imię:</label><input name="imie" type="text"><br>
+                    <label>Nazwisko:</label><input name="nazwisko" type="text"><br>
+                    <label>Email:</label><input name="email" type="text"><br>
+                    <label>Płaca netto:</label><input name="placa_netto" type="number"><br>
+                    <input name="dodaj" type="submit" value="dodaj nowego pracownika"><br>
+                </form>
+            <div>
             <?php
                 if(isset($_POST["imie"]) && isset($_POST["nazwisko"]) && isset($_POST["email"]) && isset($_POST["placa_netto"]) && isset($_POST["dodaj"]))
                 {
                     $czy_wykonac = true;
+                    $message = "";
 
                     if($_POST["imie"] == "")
                     {
-                        echo "brak imienia<br>";
+                        $message = $message."brak imienia<br><br>";
                         $czy_wykonac = false;
                     }
                     if($_POST["nazwisko"] == "")
                     {
-                        echo "brak nazwiska<br>";
+                        $message = $message."brak nazwiska<br><br>";
                         $czy_wykonac = false;
                     }
                     if($_POST["email"] == "")
                     {
-                        echo "brak emaila<br>";
+                        $message = $message."brak emaila<br><br>";
                         $czy_wykonac = false;
                     }
                     elseif(!strpos($_POST["email"],"@"))
                     {
-                        echo "nieprawidłowy format emaila<br>";
+                        $message = $message."nieprawidłowy format emaila<br><br>";
                         $czy_wykonac = false;
                     }
                     if($_POST["placa_netto"] == "")
                     {
-                        echo "brak płacy netto<br>";
+                        $message = $message."brak płacy netto<br><br>";
                         $czy_wykonac = false;
                     }
                 
                     if($czy_wykonac)
                     {
                         dodawanie($_POST["imie"], $_POST["nazwisko"], $_POST["email"],$_POST["placa_netto"]);
-                        header("location:index.php");
+                    }
+                    else
+                    {
+                        echo "<p class='alert'>".$message."</p>";
                     }
                 }
             ?>
+            <div class="place"></div>
         </div>
     </body>
 </html>

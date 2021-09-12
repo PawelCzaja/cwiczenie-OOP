@@ -1,0 +1,108 @@
+body{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+#concection_check{
+
+}
+
+table{
+    position: absolute;
+    margin-left: 15%;
+    margin-right: 15%;
+    width:70%;
+    top:500px;
+}
+
+td > input{
+    width: 100%;
+    height: 30px;
+    border: none;
+    margin: 0px;
+    padding: 5px;
+    color:rgb(252, 205, 205);
+    font-weight: 600;
+    font-variant: small-caps;
+    background-color: rgba(255, 0, 0, 0.644);
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+form > input[type=submit]{
+    width: 100%;
+    height: 30px;
+    border: none;
+    margin:0px;
+    margin-top: 20px;
+    padding: 5px;
+    color:rgb(31, 85, 0);
+    font-weight: 600;
+    font-variant: small-caps;
+    background-color: rgba(38, 202, 38, 0.644);
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+form{
+    text-align: right;
+    position: absolute;
+    padding:20px;
+    width:300px;
+    min-width: 140px;
+    top:100px;
+    background-color:rgba(247, 233, 159, 0.445);
+    border:solid rgb(192, 165, 12) 2px;
+    border-radius: 20px;
+}
+
+#email {
+    width: 200px;
+}
+
+td {
+    min-width: 100px;
+    outline:solid rgb(192, 165, 12) 2px; 
+    margin:0px;
+    background-color:rgba(247, 233, 159, 0.445);
+}
+
+td:last-child {
+    width:10px; 
+    background-color: white;
+    outline: none;
+    margin:0px;
+}
+
+input{
+    margin: 8px;
+}
+
+.place{
+    width: 39%;
+}
+
+.flex{
+    display: flex;
+}
+
+.form{
+    width: 340px;
+}
+
+th{
+    font-size: 24px;
+    color: rgb(134, 115, 7);
+    font-variant: small-caps;
+
+}
+
+.alert{
+    position: relative;
+    top:62px;
+    left:400px;
+    margin:5px;
+    border-spacing: 20px;
+    color:red;
+}
+
+
